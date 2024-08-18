@@ -18,7 +18,7 @@ function App() {
 
       {/* <Card username="John" btnText="Click me" />
       <Card username="Jack" /> */}
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-1 xl:grid-cols-5 p-12">
         <Link to="/bg-color">
           <div className="flex items-center gap-4 cursor-pointer list-demo">
             <div className="w-14 h-14 rounded-3xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
