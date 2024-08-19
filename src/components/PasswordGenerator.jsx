@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, useEffect } from "react";
 
 const PasswordGenerator = () => {
   const [generatePassword, setGeneratePassword] = useState("");
@@ -19,12 +19,14 @@ const PasswordGenerator = () => {
     if (isLowercase) str += "abcdefghijklmnopqrstuvwxyz";
     if (isNumbers) str += "1234567890";
     if (isSymbols) str += "~!@#$%^&*()+={}[]`";
-    for (let i = 1; i <= passwordLenght; i++) {
-      let char = Math.floor(Math.random() * str.length);
 
-      pass += str.charAt(char);
+    if (str?.length > 0) {
+      for (let i = 1; i <= passwordLenght; i++) {
+        let char = Math.floor(Math.random() * str.length);
+        pass += str.charAt(char);
+      }
+      setGeneratePassword(pass);
     }
-    setGeneratePassword(pass);
   }, [
     isUppercase,
     isLowercase,
@@ -61,6 +63,9 @@ const PasswordGenerator = () => {
     window.navigator.clipboard.writeText(generatePassword);
   }, [generatePassword]);
 
+  useEffect(() => {
+    handlePassGenie();
+  }, [setGeneratePassword, handlePassGenie]);
   return (
     <div
       className="relative flex items-center justify-center h-screen py-40 overflow-hidden bg-no-repeat bg-cover"
@@ -72,7 +77,7 @@ const PasswordGenerator = () => {
             ref={copyRef}
             value={generatePassword}
             type="text"
-            className="bg-transparent text-sm focus:outline-0"
+            className="bg-transparent text-sm focus:outline-0 w-full"
           />
           {textCopy && (
             <span className="absolute text-[12px] text-white bottom-[-13px] left-4 transition-all">
